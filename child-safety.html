@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Child Safety Standards</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#f0f4ff;color:#1e1e2e;line-height:1.8}
+
+    /* HEADER */
+    header{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:white;padding:56px 24px 44px;text-align:center;position:relative;overflow:hidden}
+    header::after{content:'🛡️';position:absolute;font-size:200px;opacity:0.05;right:-20px;top:-20px;pointer-events:none}
+    .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;padding:5px 18px;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+    header h1{font-size:2.2rem;font-weight:800;margin-bottom:8px}
+    header p{opacity:0.75;font-size:0.95rem}
+    .pill{display:inline-block;background:rgba(255,255,255,0.1);border-radius:6px;padding:3px 12px;font-size:11px;margin-top:14px;opacity:0.6}
+
+    /* MISSING PARAMS BANNER */
+    .missing-banner{background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:20px 24px;margin:30px auto;max-width:840px;text-align:center;color:#856404;font-size:0.93rem}
+    .missing-banner strong{display:block;font-size:1rem;margin-bottom:6px}
+    .missing-banner code{background:rgba(0,0,0,0.07);border-radius:4px;padding:2px 7px;font-size:0.85em}
+
+    /* LAYOUT */
+    .container{max-width:840px;margin:0 auto;padding:44px 20px 80px}
+
+    /* CARDS */
+    .card{background:white;border-radius:16px;padding:30px 32px;margin-bottom:20px;box-shadow:0 2px 16px rgba(0,0,0,0.06);border-top:4px solid #3b82f6}
+    .card.danger{border-top-color:#ef4444}
+    .card.warning{border-top-color:#f97316}
+    .card.success{border-top-color:#22c55e}
+    .card.purple{border-top-color:#8b5cf6}
+    .card-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .card-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:#eff6ff}
+    .card.danger .card-icon{background:#fef2f2}
+    .card.warning .card-icon{background:#fff7ed}
+    .card.success .card-icon{background:#f0fdf4}
+    .card.purple .card-icon{background:#f5f3ff}
+    .card h2{font-size:1.05rem;font-weight:700;color:#1e1e2e}
+    .card p{color:#4b5563;font-size:0.94rem;margin-bottom:10px}
+    .card p:last-child{margin-bottom:0}
+    .card ul{list-style:none;padding:0}
+    .card ul li{color:#4b5563;font-size:0.94rem;padding:9px 0 9px 24px;border-bottom:1px solid #f3f4f6;position:relative}
+    .card ul li:last-child{border-bottom:none}
+    .card ul li::before{content:'✓';position:absolute;left:0;font-weight:700;color:#22c55e}
+    .card.danger ul li::before{content:'✗';color:#ef4444}
+    .card.warning ul li::before{content:'→';color:#f97316}
+    .card.purple ul li::before{content:'✓';color:#8b5cf6}
+
+    /* CONTACT BOX */
+    .contact-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px 24px;margin-top:14px}
+    .contact-box .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#3b82f6;font-weight:700;margin-bottom:8px}
+    .contact-box .email{font-size:1.05rem;font-weight:700;color:#1d4ed8}
+    .contact-box .note{font-size:0.83rem;color:#6b7280;margin-top:6px}
+    .contact-box .subj{display:inline-block;background:#dbeafe;border-radius:6px;padding:2px 10px;font-size:0.82rem;color:#1d4ed8;margin-top:8px;font-weight:500}
+
+    /* ZERO BANNER */
+    .zero-banner{background:linear-gradient(135deg,#fef2f2,#fff5f5);border:1px solid #fecaca;border-radius:14px;padding:22px 26px;margin-bottom:28px;display:flex;gap:18px;align-items:flex-start}
+    .zero-banner .icon{font-size:2rem;line-height:1}
+    .zero-banner h3{color:#b91c1c;font-size:1rem;font-weight:700;margin-bottom:4px}
+    .zero-banner p{color:#6b7280;font-size:0.88rem}
+
+    footer{text-align:center;padding:36px 20px;border-top:1px solid #e5e7eb;color:#9ca3af;font-size:0.82rem}
+    footer span{color:#6b7280;font-weight:500}
+    code{background:#f3f4f6;border-radius:4px;padding:2px 7px;font-size:0.83em;color:#3b82f6}
+
+    /* DEV HELPER BOX */
+    .dev-box{background:#1e1e2e;border-radius:12px;padding:20px 24px;margin:32px 0;color:#a5b4fc;font-size:0.85rem;font-family:monospace;line-height:2}
+    .dev-box .title{color:#f472b6;font-weight:700;font-family:'Inter',sans-serif;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+    .dev-box span{color:#86efac}
+    .dev-box em{color:#fde68a;font-style:normal}
+  </style>
+</head>
+<body>
+
+<script>
+  // ─── READ URL PARAMS ───────────────────────────────────────────────
+  const params  = new URLSearchParams(window.location.search);
+  const APP     = params.get('app')     || 'Your App Name';
+  const PKG     = params.get('package') || 'com.yourcompany.appname';
+  const DEV     = params.get('dev')     || 'Your Developer Name';
+  const EMAIL   = params.get('email')   || 'contact@youremail.com';
+  const YEAR    = params.get('year')    || new Date().getFullYear();
+  const MISSING = !params.get('app');   // show warning if no params passed
+
+  // ─── INJECT INTO PAGE ─────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    document.title = `Child Safety Standards – ${APP}`;
+    document.getElementById('hdr-app').textContent    = APP + ' — Published by ' + DEV;
+    document.getElementById('hdr-pkg').textContent    = 'Package: ' + PKG + '  ·  Last Updated: March 2026';
+    document.getElementById('about-app').innerHTML    = `This page describes the Child Safety Standards for <strong>${APP}</strong> (<code>${PKG}</code>), developed and published by <strong>${DEV}</strong>, in compliance with Google Play's Child Safety Standards policy.`;
+    document.getElementById('zero-text').innerHTML    = `<strong>${DEV}</strong> enforces a strict zero-tolerance policy against CSAE across all its products, including <strong>${APP}</strong>. Any violation is immediately escalated to the relevant authorities.`;
+    document.getElementById('prohibit-text').innerHTML= `<strong>${DEV}</strong> explicitly prohibits any form of child sexual abuse and exploitation in <strong>${APP}</strong> and all its products:`;
+    document.getElementById('contact-email').textContent = EMAIL;
+    document.getElementById('contact-href').href      = `mailto:${EMAIL}?subject=Child Safety Report – ${APP}`;
+    document.getElementById('contact-subj').textContent = `Subject: Child Safety Report – ${APP}`;
+    document.getElementById('footer-text').innerHTML  = `Effective Date: ${YEAR} &nbsp;·&nbsp; Last Updated: March 2026<br/>Developer: <span>${DEV}</span> &nbsp;·&nbsp; App: ${APP} &nbsp;·&nbsp; <code>${PKG}</code>`;
+
+    if (MISSING) {
+      document.getElementById('missing-warning').style.display = 'block';
+    }
+
+    // Build example URL
+    const base = window.location.origin + window.location.pathname;
+    document.getElementById('example-url').textContent =
+      base + '?app=TokTags&package=com.devprostuff.toktags&dev=DEVPROSTUFF&email=team.devprostuff@gmail.com';
+  });
+</script>
+
+<header>
+  <div class="badge">📋 Official Policy Document</div>
+  <h1>Child Safety Standards</h1>
+  <p id="hdr-app">Loading...</p>
+  <div class="pill" id="hdr-pkg"></div>
+</header>
+
+<!-- Warning shown if no URL params provided -->
+<div id="missing-warning" class="missing-banner" style="display:none">
+  <strong>⚠️ Developer: Add URL parameters to customize this page for each app</strong>
+  Use this format: <code>?app=AppName&amp;package=com.company.app&amp;dev=DevName&amp;email=you@email.com</code><br/>
+  Example URL: <code id="example-url"></code>
+</div>
+
+<div class="container">
+
+  <div class="zero-banner">
+    <div class="icon">🚨</div>
+    <div>
+      <h3>Zero Tolerance for Child Sexual Abuse & Exploitation (CSAE)</h3>
+      <p id="zero-text"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📋</div>
+      <h2>About This Document</h2>
+    </div>
+    <p id="about-app"></p>
+    <p>This app does not host user-generated content or social/dating features. Regardless, <span id="dev-name2"></span> is fully committed to child safety across all its applications.</p>
+  </div>
+
+  <div class="card danger">
+    <div class="card-header">
+      <div class="card-icon">🚫</div>
+      <h2>Prohibition of CSAE — Child Sexual Abuse & Exploitation</h2>
+    </div>
+    <p id="prohibit-text"></p>
+    <ul>
+      <li>Any content, behavior, or activity that sexually exploits or abuses minors is strictly forbidden.</li>
+      <li>Child Sexual Abuse Material (CSAM) is banned in any form, without exception.</li>
+      <li>Any user found attempting to use the app to facilitate CSAE will be reported to authorities immediately.</li>
+      <li>Complies with all mandatory child safety reporting obligations.</li>
+      <li>Violations result in immediate account termination and law enforcement reporting.</li>
+    </ul>
+  </div>
+
+  <div class="card warning">
+    <div class="card-header">
+      <div class="card-icon">🛡️</div>
+      <h2>In-App Reporting Mechanism</h2>
+    </div>
+    <p>This app provides users with a clear and accessible mechanism to report child safety concerns:</p>
+    <ul>
+      <li>An in-app <strong>Report / Feedback</strong> option is available in the app's settings menu.</li>
+      <li>All child safety reports receive the highest priority and are reviewed promptly.</li>
+      <li>Reports involving CSAM or CSAE are immediately escalated to NCMEC and relevant law enforcement.</li>
+      <li>Users can also report directly via the contact email below.</li>
+    </ul>
+  </div>
+
+  <div class="card success">
+    <div class="card-header">
+      <div class="card-icon">📬</div>
+      <h2>Child Safety Point of Contact</h2>
+    </div>
+    <p>A designated child safety point of contact is ready and able to discuss CSAM prevention practices and compliance:</p>
+    <div class="contact-box">
+      <div class="label">Child Safety Contact</div>
+      <a id="contact-href" href="#"><div id="contact-email" class="email"></div></a>
+      <div class="subj" id="contact-subj"></div>
+      <div class="note">Response time: within 24–48 hours &nbsp;·&nbsp; Available to discuss CSAM prevention and compliance</div>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <div class="card-header">
+      <div class="card-icon">⚖️</div>
+      <h2>Legal Compliance & Declarations</h2>
+    </div>
+    <p>The developer declares that this app:</p>
+    <ul>
+      <li>Complies with all applicable child safety laws and regulations in every region where the app is available.</li>
+      <li>Maintains a process for detecting, removing, and reporting CSAM if ever discovered or reported.</li>
+      <li>Reports CSAM and CSAE incidents to NCMEC and regional authorities as required.</li>
+      <li>Will cooperate fully with Google, law enforcement, and relevant agencies in any child safety investigation.</li>
+      <li>Regularly reviews and updates these standards to remain compliant with Google Play policies.</li>
+    </ul>
+  </div>
+
+  <!-- DEV HELPER: URL BUILDER -->
+  <div class="dev-box">
+    <div class="title">🔧 Developer — URL Parameters Reference</div>
+    <span>app</span>=<em>Your App Display Name</em><br/>
+    <span>package</span>=<em>com.yourcompany.appname</em><br/>
+    <span>dev</span>=<em>Your Developer / Company Name</em><br/>
+    <span>email</span>=<em>your-safety-contact@email.com</em><br/>
+    <span>year</span>=<em>2025 (effective date year, optional)</em><br/><br/>
+    <span style="color:#f472b6">Example for TokTags:</span><br/>
+    <em id="example-url-2"></em>
+  </div>
+
+</div>
+
+<footer>
+  <div id="footer-text"></div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('dev-name2').textContent = DEV;
+    const base = window.location.origin + window.location.pathname;
+    document.getElementById('example-url-2').textContent =
+      base + '?app=TokTags&package=com.devprostuff.toktags&dev=DEVPROSTUFF&email=team.devprostuff@gmail.com';
+  });
+</script>
+
+</body>
+</html>
